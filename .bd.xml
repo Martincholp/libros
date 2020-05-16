@@ -1,0 +1,43 @@
+?<?xml version="1.0" encoding="UTF-8"?>
+<biblioteca>
+    <!-- Entrada con todos los datos completos -->
+    <libro archivo="Fisica Universitaria - Sears - Zemansky - 12ava Edicion - Vol1.pdf">
+        <tags>física Newton fuerza aceleración velocidad</tags>
+        <titulo>Fìsica Universitaria volumen 1</titulo>
+        <tipo>Texto universitario</tipo>
+        <subtipo>fisica</subtipo>
+        <autores>
+            <autor>ZEMANSKY, MARK W.</autor>
+            <autor>SEARS, FRANCIS W.</autor>
+            <autor>YOUNG, HUGH D.</autor>
+            <autor>FREEDMAN, ROGER A.</autor>
+        </autores>
+        <edicion nro="12">12ava edición</edicion>
+        <editorial>Addison-Wesley</editorial>
+        <isbn>978-607-442-288-7</isbn>
+        <ano>2009</ano>
+        <idioma>Español</idioma>
+    </libro>
+
+    <!-- Entrada con solo algunos datos -->
+    <libro archivo="Manual del tele.pdf">
+        <tags>manual tele televisor instrucciones</tags>
+        <titulo>Manual de usuario - RCA Smart TV L32NXTSMART</titulo>
+        <tipo>Manual</tipo>
+        <idioma>Español</idioma>
+    </libro>
+
+    <!-- Entrada con solo algunos datos -->
+    <libro archivo="Python guide documentation.pdf">
+        <tags>python programación documentación informática</tags>
+        <titulo>Python guide documentation</titulo>
+        <tipo>Documentación</tipo>
+        <subtipo>Informática</subtipo>
+        <autores>
+            <autor>Kenneth Reitz</autor>
+        </autores>
+        <edicion nro="0.0.1">Release 0.0.1</edicion>
+        <ano>2018</ano>
+        <idioma>Inglés</idioma>
+    </libro>
+</biblioteca>

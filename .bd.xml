@@ -1,7 +1,7 @@
-?<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <biblioteca>
     <!-- Entrada con todos los datos completos -->
-    <libro archivo="Fisica Universitaria - Sears - Zemansky - 12ava Edicion - Vol1.pdf">
+    <libro archivo="Fisica Universitaria - Sears - Zemansky - 12ava Edicion - Vol1.pdf" id="0">
         <tags>física Newton fuerza aceleración velocidad</tags>
         <titulo>Fìsica Universitaria volumen 1</titulo>
         <tipo>Texto universitario</tipo>
@@ -15,12 +15,12 @@
         <edicion nro="12">12ava edición</edicion>
         <editorial>Addison-Wesley</editorial>
         <isbn>978-607-442-288-7</isbn>
-        <ano>2009</ano>
+        <anio>2009</anio>
         <idioma>Español</idioma>
     </libro>
 
     <!-- Entrada con solo algunos datos -->
-    <libro archivo="Manual del tele.pdf">
+    <libro archivo="Manual del tele.pdf" id="1">
         <tags>manual tele televisor instrucciones</tags>
         <titulo>Manual de usuario - RCA Smart TV L32NXTSMART</titulo>
         <tipo>Manual</tipo>
@@ -28,7 +28,7 @@
     </libro>
 
     <!-- Entrada con solo algunos datos -->
-    <libro archivo="Python guide documentation.pdf">
+    <libro archivo="Python guide documentation.pdf" id="2">
         <tags>python programación documentación informática</tags>
         <titulo>Python guide documentation</titulo>
         <tipo>Documentación</tipo>
@@ -36,8 +36,11 @@
         <autores>
             <autor>Kenneth Reitz</autor>
         </autores>
-        <edicion nro="0.0.1">Release 0.0.1</edicion>
-        <ano>2018</ano>
+        <edicion>Release 0.0.1</edicion>
+        <anio>2018</anio>
         <idioma>Inglés</idioma>
     </libro>
+
+    <!-- Entrada con solo los datos mínimos. El ID y el archivo existen siempre. Si alguno no existe esta mal hecho el xml -->
+    <libro archivo="Prueba sin nada.pdf" id="3"><titulo>Prueba sin nada</titulo></libro>
 </biblioteca>

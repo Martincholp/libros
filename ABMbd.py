@@ -4,7 +4,7 @@
 '''Gestor de base de datos de biblioteca xml'''
 
 from lxml import etree
-from libros import *
+from clases import *
 
 
 class BD(object):

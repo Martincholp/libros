@@ -95,8 +95,12 @@ class BD(object):
         return self.__BD[id]
 
     def __iter__(self):
-        # iterador sobre todos los libros para poder llamar con la sentencia for sin que de error
-        return iter(self.__BD)
+        # Iterador sobre todos los libros para poder llamar con la sentencia for sin que de error
+        return iter(self.__BD.values())
+
+    def __len__(self):
+        '''Devuelve la cantidad de libros en la base de datos'''
+        return len(self.__BD)
 
 
     def obtenerLibro(self, id, default=None):
@@ -128,6 +132,10 @@ class BD(object):
             disponible += 1
 
         return disponible
+
+    def requiereActualizarXML(self):
+        '''Devuelve True cuando hay cambios en la base de datos que es necesario guardar'''
+        return self.__modificado
 
 
     def actualizarXML(self):

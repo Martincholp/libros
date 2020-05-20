@@ -8,29 +8,60 @@
 	<!-- <script src="JS/ArchivoJavascript.js"></script> -->
 </head>
 <body class="w3-container">
-	<header class="w3-container w3-dark-grey">
+	<header class="w3-container w3-teal"> 
 		<h1>CLIbros v1</h1>
 		<h5>Gestor de libros en línea de comandos</h5>
 		<nav class="w3-bar">
-			<a href="index.html" class="w3-bar-item w3-button">Descripción</a>
-			<a href="bd.html" class="w3-bar-item w3-button">BD</a>
+			<a href="index.html" class="w3-bar-item w3-button w3-hover-green">Descripción</a>
+			<a href="bd.html" class="w3-bar-item w3-button w3-hover-green">BD</a>
 			
 			<div class="w3-dropdown-hover">
-				<a href="referencias.html" class="w3-button">Referencias</a>
+				<a href="referencias.html" class="w3-button w3-hover-green">Referencias</a>
 				<div class="w3-dropdown-content w3-bar-block w3-card-4">
-					<a href="#" class="w3-bar-item w3-button">ABMbd.py</a>
-					<a href="#" class="w3-bar-item w3-button">clases.py</a>
-					<a href="#" class="w3-bar-item w3-button">manlog.py</a>
+					<a href="#" class="w3-bar-item w3-button w3-hover-green">ABMbd.py</a>
+					<a href="#" class="w3-bar-item w3-button w3-hover-green">clases.py</a>
+					<a href="#" class="w3-bar-item w3-button w3-hover-green">manlog.py</a>
 				</div>
 			</div>
-			<a href="log.html" class="w3-bar-item w3-button">Log</a>
+			<a href="log.html" class="w3-bar-item w3-button w3-hover-green">Log</a>
 		</nav>
 	</header>
-	<main class="w3-container">
-		<p> Programa en línea de comandos que permite la gestión de un directorio como si de una biblioteca se tratara, al registrar los archivos en una base de datos.</p>
-		<p>Esta base de datos cumple la función de un índice donde se pueden agregar distintos metadatos, como tags, autor, título, número de edición, etc.</p>
+	<main class="w3-container w3-pale-green">
+		<h2>¿Que es CLIbros?</h2>
+		<p>CLIbros es un programa en línea de comandos que te permite la gestión de un directorio como si se tratar de una biblioteca. Con CLIbros podrás agregar distintos metadatos a tus archivos de libros, como por ejemplo tags, título, autores, edición, etc. Al contar con esta información buscar un libro en particular se hace mucho mas fácil y encontrarás el libro que estás necesitando mas rápidamente.</p>
+
+		<h2>Características principales</h2>
+			<ul>
+				<li>Analiza un directorio en busca de archivos para agregar a su base de datos. Para decidir cuales archivos deben agregarse se definen distintos patrones (expresiones regulares) que funcionan como filtros. También pueden definirse patrones para ignorar su análisis, evitando ingresar a la base de datos aquellos archivos que no queremos indexar. </li>
+				<li>Verifica la confiabilidad de la base de datos, asegurando que los libros que están indexados existan en el directorio.</li>
+				<li>Agrega distintos metadatos a los libros indexados, aumentando la información relacionada con cada archivo para producir búsquedas mas efectivas. Los metadatos disponibles son los siguientes:
+					<ul>
+						<li><strong>Título:</strong> Por defecto es el nombre del archivo, pero puede modificarse posteriormente.</li>
+						<li><strong>Autores:</strong> Puede ser uno o varios autores.</li>
+						<li><strong>Edición:</strong> Es el número que indica cuantas veces fue editado ese libro</li>
+						<li><strong>Texto de edición:</strong> Frase que expresa la edición en forma de texto. Por ejemplo "Segunda edición"</li>
+						<li><strong>Editorial:</strong> Es la empresa encargada de la publicación del libro.</li>
+						<li><strong>Tipo:</strong> Podemos encontrar distinto tipo de contenido según el libro. El tipo puede ser novela, científico, universitario, biografía, autoayuda, etc</li>
+						<li><strong>Subtipo:</strong> Cada tipo de libro puede tener a su vez distintas variantes. Por ejemplo una novela puede ser policial, ciencia ficción, fantasía, histórica, etc. Para el caso de tratarse de libros universitarios, el subtipo puede hacer referencia a la materia en concreto que trata el libro.</li>
+						<li><strong>ISBN:</strong> Es un identificador único para libros,​ previsto para uso comercial</li>
+						<li><strong>Año:</strong> Identifica cuando fue publicado.</li>
+						<li><strong>Idioma:</strong> Identifica el idioma en que está escrito el libro.</li>
+						<li><strong>Tags:</strong> Palabras que funcionan como palabras clave asociadas a cada libro.</li>
+					</ul>
+					Al agregar los libros a la base de datos, el único metadato que se asigna a esa entrada es el título del libro, que por defecto será igual al nombre de archivo sin la extensión. Sin embargo puede ser modificado por parte del usuario, al igual que todos los otros metadatos de la lista anterior ,que también pueden ser agregados si no estuvieran o borrados de la entrada.
+					Otros metadatos que se agregan al índice de forma automática son el nombre de archivo y un número de id que lo identifica dentro de la base de datos. El id no puede ser modificado ni eliminado, y es un número único para cada entrada. En cambio el nombre de archivo si puede ser modificado, pero debe hacerse mediante la función correspondiente para asegurarnos de que la base de datos siga apuntando al archivo correspondiente.
+
+				</li>
+				<li>Realiza búsquedas mediante un potente buscador que utiliza expresiones regulares para filtrar los resultados por cualquiera de los metadatos.</li>
+				<li>Puede guardar en un archivo de texto lista de libros que resulta de una búsqueda, pudiendo definir el formato de ese archivo de texto mediante expresiones generadoras.</li>
+				<li>Puede abrir el libro seleccionado con el programa definido por el sistema según el tipo de archivo.</li>
+				<li>Permite una configuración general del programa y una configuración particular para cada directorio.</li>
+				<li>Crea un archivo de registro (log) que guarda todas las operaciones de escritura que se efectúan sobre la base de datos. Este archivo contiene la fecha y hora, tipo de acción realizada, parámetros de la acción y opcionalmente un comentario con información adicional.</li>
+			</ul>
+
+
 	</main>
-	<footer class="w3-container w3-dark-grey">
+	<footer class="w3-container w3-teal">
 		<img src="imagenes/logo.svg" alt="by Martincholp">
 		<span>by martincholp</span>
 

@@ -30,6 +30,95 @@
 		<div class="w3-container">
 			<h3>Log</h3>
 			<p>La capacidad de generar un archivo de log permite hacer un seguimiento de las operaciones realizadas sobre la base de datos, pudiendo consultar, por ejemplo, cuando se agregó, modificó o eliminó cierto registro.</p>
+			<p>El módulo encargado de esa tarea es <a href="#">manlog.py (v1)</a>. Toda la funcionalidad del módulo se basa en 2 clases que son <em>ArchivoLog</em> y <em>Registro</em> las cuales se detallan a continuación.</p>
+
+			<div class="w3-container">
+				<h4>class ArchivoLog(archivo)</h4>
+				<p>Clase que representa un archivo de registros. Con esta clase cargamos la base de datos, agregamos registros nuevos, buscamos un registro particular y actualizamos la base de datos.</p>
+				<p>El parámetro <em>archivo</em> es una cadena de texto con la ruta al archivo de registros que será la base de datos. Notar que al instanciar la clase no se están cargando los registros para utilizarlo, solo se está haciendo referencia al archivo. Una vez instanciada la clase se debe llamar al método <a href="#cargar">ArchivoLog.cargarArchivo()</a> para tener los registros disponibles.</p>
+
+				<div class="w3-container"><h5>ArchivoLog.archivoBD</h5>
+					<p>Propiedad. Nombre del archivo de registro que es la base de datos.</p>
+				</div>
+				<div class="w3-container"><h5>ArchivoLog.registros</h5>
+					<p>Propiedad. Lista con los registros de la base de datos. La lista aquí devuelta es una copia, por lo que modificar esos registros no afectarán la base de datos.</p>
+				</div>
+				<div class="w3-container"><h5>ArchivoLog.modificado</h5>
+					<p>Propiedad. Indica si se ha realizado algún cambio y que todavía no se haya actualizado el archivo</p>
+				</div>
+				<div class="w3-container"><h5>ArchivoLog.separador</h5>
+					<p>Propiedad. Caracter para separar entre los campos del registro al guardar el archivo. Por defecto es '#'.</p>
+				</div>
+				<div class="w3-container" id="formato"><h5>ArchivoLog.formato</h5>
+					<p>Propiedad. Especifica el formato de fecha y hora que se usará en los registros. Por defecto es 'dd/mm/aaaa-HH:MM:SS.ssssss' pero se pueden generar formatos alternativos usando la siguiente tabla:</p>
+					<table>
+
+                        <tr><th> Símbolo </th> <th>        Significado                                                  </th> <th>  Ejemplo                     </th></tr>
+                        <tr><td>   %a    </td> <td> Día de la semana abreviado                                          </td> <td>   'Wed'                      </td></tr>
+                        <tr><td>   %A    </td> <td> Nombre completo del día de la semana                                </td> <td>   'Wednesday'                </td></tr>
+                        <tr><td>   %w    </td> <td> Número del día de la semana – 0 (Domingo) al 6 (Sábado)             </td> <td>   '3'                        </td></tr>
+                        <tr><td>   %d    </td> <td> Día del mes (rellenado con cero)                                    </td> <td>   '13'                       </td></tr>
+                        <tr><td>   %b    </td> <td> Nombre del mes abreviado                                            </td> <td>   'Jan'                      </td></tr>
+                        <tr><td>   %B    </td> <td> Nombre completo del mes                                             </td> <td>   'January'                  </td></tr>
+                        <tr><td>   %m    </td> <td> Mes del año                                                         </td> <td>   '01'                       </td></tr>
+                        <tr><td>   %y    </td> <td> Año sin siglo                                                       </td> <td>   '16'                       </td></tr>
+                        <tr><td>   %Y    </td> <td> Año con siglo                                                       </td> <td>   '2016'                     </td></tr>
+                        <tr><td>   %H    </td> <td> Hora del reloj de 24 horas                                          </td> <td>   '17'                       </td></tr>
+                        <tr><td>   %I    </td> <td> Hora del reloj de 12 horas                                          </td> <td>   '05'                       </td></tr>
+                        <tr><td>   %p    </td> <td> AM/PM                                                               </td> <td>   'PM'                       </td></tr>
+                        <tr><td>   %M    </td> <td> Minutos                                                             </td> <td>   '00'                       </td></tr>
+                        <tr><td>   %S    </td> <td> Segundos                                                            </td> <td>   '00'                       </td></tr>
+                        <tr><td>   %f    </td> <td> Microsegundos                                                       </td> <td>   '000000'                   </td></tr>
+                        <tr><td>   %z    </td> <td> Desplazamiento UTC para objetos con reconocimiento de zona horaria  </td> <td>   '-0500'                    </td></tr>
+                        <tr><td>   %Z    </td> <td> Nombre de la zona horaria                                           </td> <td>   'EST'                      </td></tr>
+                        <tr><td>   %j    </td> <td> Día del año                                                         </td> <td>   '013'                      </td></tr>
+                        <tr><td>   %W    </td> <td> Semana del año                                                      </td> <td>   '02'                       </td></tr>
+                        <tr><td>   %c    </td> <td> Representación de fecha y hora para el lugar presente               </td> <td>   'Wed Jan 13 17:00:00 2016' </td></tr>
+                        <tr><td>   %x    </td> <td> Representación de fecha para el lugar presente                      </td> <td>   '01/13/16'                 </td></tr>
+                        <tr><td>   %X    </td> <td> Representación de hora para el lugar presente                       </td> <td>   '17:00:00'                 </td></tr>
+                        <tr><td>   %%    </td> <td> Un caractér % literal                                               </td> <td>   '%'                        </td></tr>
+                    </table>
+                </div>
+				<div class="w3-container"><h5>ArchivoLog.agregarRegistro( registro, actualizar=True )</h5>
+					<p>Método. Agrega el registro <em>registro</em> a la base de datos. Si <em>actualizar</em> vale True (opción por defecto) luego de agregar el registro se actualiza el archivo de base de datos automáticamente. El uso de False es útil cuando se van a agregar varios registros de forma iterativa (como un bloque for o while), entonces evitamos todas las escrituras sobre el archivo, actualizando todo de una sola vez con el método <a href="#actualizar">ArchivoLog.actualizar()</a> una vez terminadas las iteraciones. </p>
+				</div>
+				<div class="w3-container" id="actualizar"><h5>ArchivoLog.actualizar()</h5>
+					<p>Método. Actualiza el archivo del log con los registros agregados recientemente. Si tiene éxito devuelve True, si falla devuelve False</p>
+    			</div>
+
+				<div class="w3-container" id="cargar"><h5>ArchivoLog.cargarArchivo()</h5>
+					<p>Método. Carga el archivo indicado al instanciar el objeto. El separador de los datos del registro y el formato de fecha utilizado será el indicado en self.separador y self.formato. Devuelve True si el archivo existe o False si no puede encontrar el archivo.</p>
+				</div>
+				<div class="w3-container"><h5>ArchivoLog.buscarRegistros(campo, cadena)</h5>
+					<p>Método. Busca los registros que contengan <em>cadena</em> en el <em>campo</em> indicado. Devuelve una lista con los resultados</p>
+				</div>				
+			</div>
+
+			<div class="w3-container">
+				<h4>class Registros(evento, argumentos='', comentarios='', fechahora='', formatoFechahora='%d/%m/%Y-%H:%M:%S.%f')</h4>
+				<p>Clase que representa un registro individual. El parámetro <em>evento</em> es el único obligatorio, y sirve para identificar que evento es el que se registra. Los parámetros <em>argumentos</em> y <em>comentarios</em> proveen información adicional correspondiente al evento. El parámetro <em>fechahora</em> es una marca de tiempo que indica el momento en que fue disparado el evento. Si <em>fechahora</em> es una cadena vacía se establece la fecha y hora del sistema al momento de instanciar el objeto. Si no es cadena vacía se interpretará según lo establecido en <em>formatoFechahora</em>. Para establecer nuevos formatos ver la tabla indicada en <a href="#formato">ArchivoLog.formato</a>. </p>
+
+
+				<div class="w3-container"><h5>Registro.fechahora</h5>
+					<p>Propiedad. Devuelve la fecha y hora del registro como un objeto datetime del modulo datetime.</p>
+				</div>
+				<div class="w3-container"><h5>Registro.evento</h5>
+					<p>Propiedad. Devuelve el evento que ocasionó registro.</p>
+				</div>
+				<div class="w3-container"><h5>Registro.argumentos</h5>
+					<p>Propiedad. Devuelve los argumentos del evento que ocasionó el registro.</p>
+				</div>
+				<div class="w3-container"><h5>Registro.comentarios</h5>
+					<p>Propiedad. Devuelve comentarios asociados al registro.</p>
+				</div>
+				<div class="w3-container"><h5>Registro.reg2str(self, formatoFechahora='%d/%m/%Y-%H:%M:%S.%f', separador='#')</h5>
+					<p>Método. Devuelve el registro como un string, muy útil para escribir en el archivo. El parámetro <em>formatoFechahora</em> especifica como se debe formatear la información. El parámetro <em>separador</em> indica cual caracter debe usarse para separar entre los campos del registro.</p>
+				</div>				
+				<div class="w3-container"><h5>Registro.strFechahora(self, formatoFechahora='%d/%m/%Y-%H:%M:%S.%f')</h5>
+					<p>Método. Devuelve la fecha y hora como un string, con el formato indicado en <em>formatoFechahora</em>.</p>
+				</div>				
+
+			</div>
 		</div>
 	</main>
 	<footer class="w3-container w3-teal">

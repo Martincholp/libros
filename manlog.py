@@ -18,7 +18,12 @@ class ArchivoLog(object):
         self.__formato = "%d/%m/%Y-%H:%M:%S.%f"  # Formato de fecha y hora. Por defecto es " dd/mm/aaaa-HH:MM:SS.ssssss "
                                                  # Para generar formatos alternativos ver docstring en la propiedad formato
 
-                       
+    @property
+    def archivoBD(self):
+        '''Nombre del archivo de registro que es la base de datos.'''
+        return self.__archivoBD
+    
+                      
 
     @property
     def formato(self):
@@ -204,12 +209,12 @@ class ArchivoLog(object):
 
 class Registro(object):
     """Clase que representa un registro dentro de un archivo"""
-    def __init__(self, evento, argumentos="", comentarios="", fechahora="", formatoFecha='%d/%m/%Y-%H:%M:%S.%f'):
+    def __init__(self, evento, argumentos="", comentarios="", fechahora="", formatoFechahora='%d/%m/%Y-%H:%M:%S.%f'):
 
         if fechahora == "":
             self.__fechahora = datetime.datetime.now()  # Si no se especifica fecha y hora se debe aregar automáticamente, y es en el momento en que se crea el objeto
         else:
-            self.__fechahora = datetime.datetime.strptime(fechahora, formatoFecha)  # Parsea fecha y hora según el formato pasado
+            self.__fechahora = datetime.datetime.strptime(fechahora, formatoFechahora)  # Parsea fecha y hora según el formato pasado
             
         self.__evento = evento
         self.__argumentos = argumentos
@@ -264,14 +269,14 @@ class Registro(object):
         '''Devuelve comentarios asociados al registro'''
         return self.__comentarios
 
-    def reg2str(self, formatoFecha='%d/%m/%Y-%H:%M:%S.%f', separador='#'):
+    def reg2str(self, formatoFechahora='%d/%m/%Y-%H:%M:%S.%f', separador='#'):
         '''Devuelve el registro como un string, muy útil para escribir en el archivo. 
         Si no se especifica el formato de fecha se utiliza el formato por defecto ( %d/%m/%Y-%H:%M:%S.%f )
         Para separar entre los campos del registro se utiliza separador. Si no se especifica se usa el caracter #'''
 
-        return  self.strFechahora(formatoFecha) + separador + self.evento + separador + self.argumentos + separador + self.comentarios
+        return  self.strFechahora(formatoFechahora) + separador + self.evento + separador + self.argumentos + separador + self.comentarios
 
-    def strFechahora(self, formatoFecha = '%d/%m/%Y-%H:%M:%S.%f'):
+    def strFechahora(self, formatoFechahora='%d/%m/%Y-%H:%M:%S.%f'):
         '''Devuelve la fecha y hora como un string, con el formato pasado'''
-        return self.__fechahora.strftime(formatoFecha)
+        return self.__fechahora.strftime(formatoFechahora)
 

@@ -4,6 +4,7 @@
 	<title>CLIbros</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="CSS/w3.css" > 
+	<link rel="stylesheet" href="CSS/sintaxis.css" > 
 	<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" >-->
 	<!-- <script src="JS/ArchivoJavascript.js"></script> -->
 </head>
@@ -30,23 +31,50 @@
 		<div class="w3-container">
 			<h3>Log</h3>
 			<p>La capacidad de generar un archivo de log permite hacer un seguimiento de las operaciones realizadas sobre la base de datos, pudiendo consultar, por ejemplo, cuando se agregó, modificó o eliminó cierto registro.</p>
-			<p>El módulo encargado de esa tarea es <a href="#">manlog.py (v1)</a>. Toda la funcionalidad del módulo se basa en 2 clases que son <em>ArchivoLog</em> y <em>Registro</em> las cuales se detallan a continuación.</p>
+			<p>El módulo encargado de esa tarea es <a href="#">manlog.py (v1)</a>. Toda la funcionalidad del módulo se basa en 2 clases que son <em>ArchivoLog</em> y <em>Registro</em>.</p>
+			<p>A continuación vemos estas clases con mas detalles.</p>
 
-			<div class="w3-container">
+			<ul>
+				<li><em class="stx-tipo">class </em><a href="#ArchivoLog">ArchivoLog</a>(<em class="stx-tipo">str</em> archivo)
+					<ul>
+						<li><strong>propiedad </strong><a href="#archivoBD">objeto.archivoBD</a> --> <em class="stx-tipo">str</em></li>
+						<li><strong>propiedad </strong><a href="#registros">objeto.registros</a> --> <em class="stx-tipo">list</em> <a href="#Registro">Registro</a></li>
+						<li><strong>propiedad </strong><a href="#modificado">objeto.modificado</a> --> <em class="stx-tipo">bool</em></li>
+						<li><strong>propiedad </strong><a href="#separador">objeto.separador</a> --> <em class="stx-tipo">str</em></li>
+						<li><strong>propiedad </strong><a href="#formato">objeto.formato</a> --> <em class="stx-tipo">str</em></li>
+						<li><strong>método </strong><a href="#agregarRegistro">objeto.agregarRegistro</a>(<em class="stx-tipo"><a href="#Registro">Registro</a></em> registro, <em class="stx-tipo">bool</em> actualizar=True)</li>
+						<li><strong>método </strong><a href="#actualizar">objeto.actualizar</a>() --> <em class="stx-tipo">bool</em></li>
+						<li><strong>método </strong><a href="#cargarArchivo">objeto.cargarArchivo</a>() --> <em class="stx-tipo">bool</em></li>
+						<li><strong>método </strong><a href="#buscarRegistros">objeto.buscarRegistros</a>(<em class="stx-tipo">str</em> campo, <em class="stx-tipo">str</em> cadena) --> <em class="stx-tipo">list</em> <a href="#Registro">Registro</a></li>
+					</ul>
+				</li>
+				<li><em class="stx-tipo">class </em><a href="#Registro">Registro</a>(<em class="stx-tipo">str </em>evento, <em class="stx-tipo">str </em>argumentos='', <em class="stx-tipo">str </em>comentarios='', <em class="stx-tipo">str </em>fechahora='', <em class="stx-tipo">str </em>formatoFechahora='%d/%m/%Y-%H:%M:%S.%f')
+					<ul>
+						<li><strong>propiedad</strong><a href="#fechahora">objeto.fechahora</a> --> <em class="stx-tipo">str</em></li>
+						<li><strong>propiedad</strong><a href="#evento">objeto.evento</a> --> <em class="stx-tipo">str</em></li>
+						<li><strong>propiedad</strong><a href="#argumentos">objeto.argumentos</a> --> <em class="stx-tipo">str</em></li>
+						<li><strong>propiedad</strong><a href="#comentarios">objeto.comentarios</a> --> <em class="stx-tipo">str</em></li>
+						<li><strong>método</strong><a href="#reg2str">objeto.reg2str</a>(<em class="stx-tipo">str</em> formatoFechahora='%d/%m/%Y-%H:%M:%S.%f', <em class="stx-tipo">str</em> separador='#') --> <em class="stx-tipo">str</em></li>
+						<li><strong>método</strong><a href="#strFechahora">objeto.strFechahora</a>(<em class="stx-tipo">str</em> formatoFechahora='%d/%m/%Y-%H:%M:%S.%f') --> <em class="stx-tipo">str</em></li>
+					</ul>
+				</li>
+			</ul>
+
+			<div class="w3-container stx-contDef" id="ArchivoLog">
 				<h4>class ArchivoLog(archivo)</h4>
 				<p>Clase que representa un archivo de registros. Con esta clase cargamos la base de datos, agregamos registros nuevos, buscamos un registro particular y actualizamos la base de datos.</p>
-				<p>El parámetro <em>archivo</em> es una cadena de texto con la ruta al archivo de registros que será la base de datos. Notar que al instanciar la clase no se están cargando los registros para utilizarlo, solo se está haciendo referencia al archivo. Una vez instanciada la clase se debe llamar al método <a href="#cargar">ArchivoLog.cargarArchivo()</a> para tener los registros disponibles.</p>
+				<p>El parámetro <em>archivo</em> es una cadena de texto con la ruta al archivo de registros que será la base de datos. Notar que al instanciar la clase no se están cargando los registros para utilizarlo, solo se está haciendo referencia al archivo. Una vez instanciada la clase se debe llamar al método <a href="#cargarArchivo">ArchivoLog.cargarArchivo()</a> para tener los registros disponibles.</p>
 
-				<div class="w3-container"><h5>ArchivoLog.archivoBD</h5>
+				<div class="w3-container" id="archivoBD"><h5>ArchivoLog.archivoBD</h5>
 					<p>Propiedad. Nombre del archivo de registro que es la base de datos.</p>
 				</div>
-				<div class="w3-container"><h5>ArchivoLog.registros</h5>
+				<div class="w3-container" id="registros"><h5>ArchivoLog.registros</h5>
 					<p>Propiedad. Lista con los registros de la base de datos. La lista aquí devuelta es una copia, por lo que modificar esos registros no afectarán la base de datos.</p>
 				</div>
-				<div class="w3-container"><h5>ArchivoLog.modificado</h5>
+				<div class="w3-container" id="modificado"><h5>ArchivoLog.modificado</h5>
 					<p>Propiedad. Indica si se ha realizado algún cambio y que todavía no se haya actualizado el archivo</p>
 				</div>
-				<div class="w3-container"><h5>ArchivoLog.separador</h5>
+				<div class="w3-container" id="separador"><h5>ArchivoLog.separador</h5>
 					<p>Propiedad. Caracter para separar entre los campos del registro al guardar el archivo. Por defecto es '#'.</p>
 				</div>
 				<div class="w3-container" id="formato"><h5>ArchivoLog.formato</h5>
@@ -79,42 +107,42 @@
                         <tr><td>   %%    </td> <td> Un caractér % literal                                               </td> <td>   '%'                        </td></tr>
                     </table>
                 </div>
-				<div class="w3-container"><h5>ArchivoLog.agregarRegistro( registro, actualizar=True )</h5>
+				<div class="w3-container" id="agregarRegistro"><h5>ArchivoLog.agregarRegistro( registro, actualizar=True )</h5>
 					<p>Método. Agrega el registro <em>registro</em> a la base de datos. Si <em>actualizar</em> vale True (opción por defecto) luego de agregar el registro se actualiza el archivo de base de datos automáticamente. El uso de False es útil cuando se van a agregar varios registros de forma iterativa (como un bloque for o while), entonces evitamos todas las escrituras sobre el archivo, actualizando todo de una sola vez con el método <a href="#actualizar">ArchivoLog.actualizar()</a> una vez terminadas las iteraciones. </p>
 				</div>
 				<div class="w3-container" id="actualizar"><h5>ArchivoLog.actualizar()</h5>
 					<p>Método. Actualiza el archivo del log con los registros agregados recientemente. Si tiene éxito devuelve True, si falla devuelve False</p>
     			</div>
 
-				<div class="w3-container" id="cargar"><h5>ArchivoLog.cargarArchivo()</h5>
+				<div class="w3-container" id="cargarArchivo"><h5>ArchivoLog.cargarArchivo()</h5>
 					<p>Método. Carga el archivo indicado al instanciar el objeto. El separador de los datos del registro y el formato de fecha utilizado será el indicado en self.separador y self.formato. Devuelve True si el archivo existe o False si no puede encontrar el archivo.</p>
 				</div>
-				<div class="w3-container"><h5>ArchivoLog.buscarRegistros(campo, cadena)</h5>
+				<div class="w3-container" id="buscarRegistros"><h5>ArchivoLog.buscarRegistros(campo, cadena)</h5>
 					<p>Método. Busca los registros que contengan <em>cadena</em> en el <em>campo</em> indicado. Devuelve una lista con los resultados</p>
 				</div>				
 			</div>
 
-			<div class="w3-container">
-				<h4>class Registros(evento, argumentos='', comentarios='', fechahora='', formatoFechahora='%d/%m/%Y-%H:%M:%S.%f')</h4>
+			<div class="w3-container stx-contDef" id="Registro">
+				<h4>class Registro(evento, argumentos='', comentarios='', fechahora='', formatoFechahora='%d/%m/%Y-%H:%M:%S.%f')</h4>
 				<p>Clase que representa un registro individual. El parámetro <em>evento</em> es el único obligatorio, y sirve para identificar que evento es el que se registra. Los parámetros <em>argumentos</em> y <em>comentarios</em> proveen información adicional correspondiente al evento. El parámetro <em>fechahora</em> es una marca de tiempo que indica el momento en que fue disparado el evento. Si <em>fechahora</em> es una cadena vacía se establece la fecha y hora del sistema al momento de instanciar el objeto. Si no es cadena vacía se interpretará según lo establecido en <em>formatoFechahora</em>. Para establecer nuevos formatos ver la tabla indicada en <a href="#formato">ArchivoLog.formato</a>. </p>
 
 
-				<div class="w3-container"><h5>Registro.fechahora</h5>
+				<div class="w3-container" id="fechahora"><h5>Registro.fechahora</h5>
 					<p>Propiedad. Devuelve la fecha y hora del registro como un objeto datetime del modulo datetime.</p>
 				</div>
-				<div class="w3-container"><h5>Registro.evento</h5>
+				<div class="w3-container" id="evento"><h5>Registro.evento</h5>
 					<p>Propiedad. Devuelve el evento que ocasionó registro.</p>
 				</div>
-				<div class="w3-container"><h5>Registro.argumentos</h5>
+				<div class="w3-container" id="argumentos"><h5>Registro.argumentos</h5>
 					<p>Propiedad. Devuelve los argumentos del evento que ocasionó el registro.</p>
 				</div>
-				<div class="w3-container"><h5>Registro.comentarios</h5>
+				<div class="w3-container" id="comentarios"><h5>Registro.comentarios</h5>
 					<p>Propiedad. Devuelve comentarios asociados al registro.</p>
 				</div>
-				<div class="w3-container"><h5>Registro.reg2str(self, formatoFechahora='%d/%m/%Y-%H:%M:%S.%f', separador='#')</h5>
+				<div class="w3-container" id="reg2str"><h5>Registro.reg2str(formatoFechahora='%d/%m/%Y-%H:%M:%S.%f', separador='#')</h5>
 					<p>Método. Devuelve el registro como un string, muy útil para escribir en el archivo. El parámetro <em>formatoFechahora</em> especifica como se debe formatear la información. El parámetro <em>separador</em> indica cual caracter debe usarse para separar entre los campos del registro.</p>
 				</div>				
-				<div class="w3-container"><h5>Registro.strFechahora(self, formatoFechahora='%d/%m/%Y-%H:%M:%S.%f')</h5>
+				<div class="w3-container" id="strFechahora"><h5>Registro.strFechahora(formatoFechahora='%d/%m/%Y-%H:%M:%S.%f')</h5>
 					<p>Método. Devuelve la fecha y hora como un string, con el formato indicado en <em>formatoFechahora</em>.</p>
 				</div>				
 

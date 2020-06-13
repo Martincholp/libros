@@ -1,0 +1,16 @@
+/* Hoja de estilos para resaltar una sintaxis */
+
+/* Para contenedores que encierran definiciones */
+.stx-contDef{ 
+	margin-top: : 2em
+	}
+
+/* Para los titulos hijos directos de los contenedores con definiciones*/
+.stx-contDef > h1, .stx-contDef > h2, .stx-contDef > h3, .stx-contDef > h4, .stx-contDef > h5, .stx-contDef > h6{ 
+	color: red	
+}
+
+/* Para tipos de variable */
+.stx-tipo{ 
+	color: blue
+}

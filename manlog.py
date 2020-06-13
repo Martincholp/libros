@@ -80,9 +80,13 @@ class ArchivoLog(object):
     def registros(self):
         '''Lista con los registros de la base de datos'''
 
-        lista = self.__regs.copy()
-        nuevos = self.__regsNuevos.copy()
-        lista.extend(nuevos)
+        # lista = self.__regs.copy()
+        # nuevos = self.__regsNuevos.copy()
+        #lista.extend(nuevos)
+
+        lista = []
+        lista.extend(self.__regs)
+        lista.extend(self.__regsNuevos)
         return lista
     
 
@@ -100,12 +104,17 @@ class ArchivoLog(object):
             return False
                       
         else:
+            # Limpio la lista, por las dudas
+            self.__regs.clear()
+
+            # Agrego a la lista cada linea del archivo
             for linea in f:
                 fechahora, evento, argumentos, comentarios = linea.strip().split(self.separador)
-                self.agregarRegistro(Registro(evento, argumentos, comentarios, fechahora, self.formato), False)
+                self.__regs.append(Registro(evento, argumentos, comentarios, fechahora, self.formato))
 
-            # Al usar agregarRegistro se la variable __modificado se hace True, por lo tanto tenemos que  volverla a False manualmente
+            # Modificado a False. Como recién cargo el archivo no está modificado
             self.__modificado = False
+
             return True
         
         finally:
@@ -146,7 +155,8 @@ class ArchivoLog(object):
 
         if actualizar:
             self.actualizar()
-        
+
+        return registro
 
 
     def actualizar(self):
@@ -161,45 +171,35 @@ class ArchivoLog(object):
         self.aux = []
 
         try:
-            #print('try')
             self.aux = self.__regs.copy()  # Copia los registros en una lista auxiliar
             self.__regsNuevos.sort()            # ordenados por fecha y hora, por las dudas...
             self.__regs.extend(self.__regsNuevos)  # Pongo los nuevos en la lista principal
 
             f = open(self.__archivo, 'a')  # intento abrir el archivo para agregar lineas
-            #print('/try')
+            
 
         except FileNotFoundError:
-            #print('except1')
             resultado = False     # si el archivo no existe devuelvo falso
-            #print('/except1')
 
         except:  # si es otra excepcion la lanzo 
-            #print('except2')
             raise
-            #print('/except2')
 
         else:    # si pude abrir el archivo guardo los registros nuevos
-            #print('else')
-
             for reg in self.__regsNuevos:
                 f.write(reg.reg2str(self.formato, self.separador) + '\n')
 
             resultado = True
 
-            #print('/else')
         finally:
-            #print('finally')
+            f.close()  #cierro el archivo
 
             if resultado: # si pude guardar todos los registros 
-                f.close()  #cierro el archivo
                 self.__regsNuevos.clear()  # limpio la lista de nuevos
                 self.__modificado = False  # reseteo la bandera de modificacion
 
             else:  # Si no se pudo actualizar
                 self.__regs = self.aux  # vuelvo el estado de __regs al valor antes del __regs.extend()
 
-            #print('/finally')
             # devuelvo el resultado
             return resultado
 

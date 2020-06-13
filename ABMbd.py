@@ -92,6 +92,7 @@ class BD(object):
 
 
     def __getitem__(self, id):
+        ''' Permite buscar un libro con la sintaxis BD[id]'''
         return self.__BD[id]
 
     def __iter__(self):
@@ -104,7 +105,7 @@ class BD(object):
 
 
     def obtenerLibro(self, id, default=None):
-        '''Devuelve el libro con el id indicado'''
+        '''Devuelve el libro con el id indicado. Si no existe devuelve default'''
         return self.__BD.get(id, default)
 
     def agregarLibro(self, libro, actualizar=False):
@@ -142,3 +143,4 @@ class BD(object):
         '''Actualiza la base de datos, esribiendo los cambios hechos'''
         self.__BDxml.write(self.__archivoXML, pretty_print=True, xml_declaration=True,   encoding="utf-8")
         self.__modificado   = False
+

@@ -1,6 +1,8 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from os import scandir
+
 '''Módulo que define las clases para manejar la biblioteca'''
 
 class Libro(object):
@@ -135,3 +137,17 @@ class Libro(object):
     def __str__(self):
         return self.titulo
 
+class Directorio(object):
+    """Directorio utilizado como biblioteca"""
+    def __init__(self, path):
+        
+        self.__path = path
+
+    @property
+    def path(self):
+        return self._path
+    
+
+    def archivos(self):
+    '''Lista con los archivos del directorio actual'''
+        return [obj.name for obj in scandir(self.path) if obj.is_file()]

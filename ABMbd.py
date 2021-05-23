@@ -110,6 +110,63 @@ class BD(object):
 
     def agregarLibro(self, libro, actualizar=False):
         '''Agrega el libro pasado a la base de datos. Si actualizar es True actualiza el xml inmediatamente'''
+
+        # Para agregar un libro a la base de datos primero tengo que obtener un ID disponible
+    #    libro._Libro__id = obtenerIdDisponible()
+
+
+        # Creo un elemento libro en el xml
+
+    #    libroXML = etree.SubElement(self.__BDxml, 'libro')  
+        
+        # Voy agregando cada subelemento a ese elemento libroXML
+    #    libroXML.find('titulo').text = objLibro._Libro__titulo  # Le asigno el texto al elemento creado
+
+
+    # 		<libro archivo="" id="">
+    # 		    <tags></tags>
+    # 		    <titulo></titulo>
+    # 		    <tipo></tipo>
+    # 		    <subtipo></subtipo>
+    # 		    <autores>
+    # 		        <autor></autor>
+    # 		        <autor></autor>
+    # 		        <autor></autor>
+    # 		        <autor></autor>
+    # 		    </autores>
+    # 		    <edicion nro=""></edicion>
+    # 		    <editorial></editorial>
+    # 		    <isbn></isbn>
+    # 		    <anio></anio>
+    # 		    <idioma></idioma>
+    # 		</libro>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         pass    
 
     def eliminarLibro(self, libro, actualizar=False):
@@ -127,7 +184,7 @@ class BD(object):
         # Objeto dict_keys() con todos los ids usados
         ids = self.__BD.keys() 
 
-        disponible = 0
+        disponible = 1 # El valor por defecto de Libro.id es 0, por lo tanto este valor indica que no ha sido asignado un ID especifico. Debo empezar a verificar a partir de 1
 
         while disponible in ids:
             disponible += 1

@@ -1,0 +1,33 @@
+/* Hoja de estilos generales */
+
+body {
+	font-size: 150%;
+}
+
+h1 {
+	font-size: 200%;
+}
+
+h2 {
+	font-size: 170%;
+}
+
+h3 {
+	font-size: 140%;
+}
+
+h4 {
+	font-size: 110%;
+}
+
+h5 {
+	font-size: 85%;
+}
+
+h6 {
+	font-size: 60%;
+}
+
+.titulo {
+	font-size: 130%;	
+}
